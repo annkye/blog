@@ -1,0 +1,25 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: ./app/docker/dev/nginx
+    volumes:
+      - ./app:/app
+    depends_on:
+      - php-fpm
+    ports:
+      - "8080:80"
+  php-fpm:
+    build:
+      context: ./app/docker/dev/php-fpm
+    volumes:
+      - ./app:/app
+  php-cli:
+    build:
+      context: ./app/docker/dev/php-cli
+    volumes:
+      - ./app:/app
+      - composer:/root/.composer/cache
+
+volumes:
+  composer:

@@ -1,5 +1,5 @@
 up: docker-up
-init: docker-down-clear manager-clear docker-pull docker-build docker-up composer-inst
+init: docker-down-clear docker-pull docker-build docker-up composer-inst
 restart: docker-down docker-up
 test: manager-test
 

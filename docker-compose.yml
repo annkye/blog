@@ -8,11 +8,12 @@ services:
     volumes:
       - ./app:/app
     restart: always
+    depends_on:
+      - php-fpm
     ports:
       - "8080:80"
   php-fpm:
     container_name: php82-fpm-container
-    restart: always
     build:
       context: ./app/docker/dev/php-fpm
     volumes:

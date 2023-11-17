@@ -1,15 +1,18 @@
 version: '3'
+
 services:
   nginx:
+    container_name: nginx-container
     build:
       context: ./app/docker/dev/nginx
     volumes:
       - ./app:/app
-    depends_on:
-      - php-fpm
+    restart: always
     ports:
       - "8080:80"
   php-fpm:
+    container_name: php82-fpm-container
+    restart: always
     build:
       context: ./app/docker/dev/php-fpm
     volumes:

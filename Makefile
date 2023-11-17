@@ -1,5 +1,6 @@
 up: docker-up
-init: docker-down-clear docker-pull docker-build docker-up composer-inst
+init: docker-down-clear manager-clear docker-pull docker-build docker-up composer-inst
+restart: docker-down docker-up
 test: manager-test
 
 docker-up:
@@ -7,6 +8,9 @@ docker-up:
 
 docker-down-clear:
 	docker-compose down -v --remove-orphans
+
+manager-clear:
+	docker run --rm -v ${PWD}/app:/app --workdir=/app alpine rm -f .ready
 
 docker-down:
 	docker-compose down --remove-orphans

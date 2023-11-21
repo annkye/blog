@@ -24,6 +24,17 @@ services:
     volumes:
       - ./app:/app
       - composer:/root/.composer/cache
+  postgres:
+    image: postgres:16.1-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app
+    ports:
+      - "54321:5432"
 
 volumes:
+  postgres:
   composer:

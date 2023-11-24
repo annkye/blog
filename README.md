@@ -4,6 +4,8 @@
   
 PHP version: 8.2
 
+База данных: PostgreSQL 16.1
+
 Тематика сайта: менеджер проектов
 
 Аналоги: Jira, YouGile, Trello

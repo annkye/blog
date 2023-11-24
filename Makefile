@@ -26,3 +26,6 @@ composer-inst:
 
 manager-test:
 	docker-compose run --rm php-cli php bin/phpunit
+
+
+

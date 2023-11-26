@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block body %}
+
+    <main class="form-signin w-100 m-auto">
+        {{ form_errors(registrationForm) }}
+        {{ form_start(registrationForm) }}
+            <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+            <div class="form-floating">
+                {{ form_row(registrationForm.email) }}
+            </div>
+            <div class="form-floating">
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+            </div>
+
+            <div class="form-check text-start my-3">
+                {{ form_row(registrationForm.agreeTerms) }}
+            </div>
+
+            <button class="btn btn-primary w-100 py-2" type="submit">Зарегистрироваться</button>
+            <p></p>
+            <a href = "/login" class="btn btn-outline-secondary w-100 py-2" >У меня уже есть аккаунт!</a>
+        {{ form_end(registrationForm) }}
+    </main>
+{% endblock %}

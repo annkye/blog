@@ -1,6 +1,7 @@
 up: docker-up
 init: docker-down-clear docker-pull docker-build docker-up composer-inst
 restart: docker-down docker-up
+migrate: docker-migrations
 test: manager-test
 
 docker-up:
@@ -27,5 +28,5 @@ composer-inst:
 manager-test:
 	docker-compose run --rm php-cli php bin/phpunit
 
-
-
+docker-migrations:
+	docker-compose run --rm php-cli php bin/console doctrine:migrations:migrate

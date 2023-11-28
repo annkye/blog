@@ -139,6 +139,9 @@
       <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-php83" />
       <path value="$PROJECT_DIR$/app/vendor/symfony/clock" />
       <path value="$PROJECT_DIR$/app/vendor/symfony/asset" />
+      <path value="$PROJECT_DIR$/app/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/app/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/app/vendor/ramsey/collection" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

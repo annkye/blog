@@ -23,10 +23,10 @@ docker-build:
 	docker-compose build
 
 composer-inst:
-	docker-compose run --rm php-cli composer install
+	docker-compose run --rm php-cli composer install --prefer-dist
 
 manager-test:
 	docker-compose run --rm php-cli php bin/phpunit
 
 docker-migrations:
-	docker-compose run --rm php-cli php bin/console doctrine:migrations:migrate
+	docker-compose run --rm php-cli php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration

@@ -1,4 +1,4 @@
-/.idea/
+.idea/
 /app/.env.local
 /app/.env.local.php
 /app/.env.*.local
@@ -10,3 +10,4 @@
 /app/.phpunit.result.cache
 /app/.phpunit.result.cache
 /app/phpunit.xml
+/app/.idea/

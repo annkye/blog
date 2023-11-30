@@ -136,6 +136,7 @@
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/ramsey/collection" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/doctrine/annotations" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

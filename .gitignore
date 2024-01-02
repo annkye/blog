@@ -1,4 +1,4 @@
-.idea/
+/.idea/
 /app/.env.local
 /app/.env.local.php
 /app/.env.*.local

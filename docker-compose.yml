@@ -13,7 +13,7 @@ services:
     ports:
       - "8080:80"
   php-fpm:
-    container_name: php82-fpm-container
+    container_name: php83-fpm-container
     build:
       context: ./app/docker/dev/php-fpm
     volumes:

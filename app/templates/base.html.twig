@@ -44,7 +44,7 @@
                             </ul>
                         </div>
                     {% else %}
-                        <a href="/signup" class="btn btn-outline-light me-2">Регистрация</a>
+                        <a href="/" class="btn btn-outline-light me-2">Регистрация</a>
                         <a href="/" class="btn btn-warning">Войти</a>
                     {% endif %}
                 </div>
@@ -54,9 +54,7 @@
 
     <div class="container">
         {% block breadcrumb %}{% endblock %}
-        {% include '_flashes.html.twig' %}
         {% block body %}{% endblock %}
-
     </div>
 
 

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231130133221 extends AbstractMigration
+final class Version20240104150822 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -48,6 +48,7 @@ final class Version20231130133221 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP TABLE user_users');
         $this->addSql('DROP TABLE messenger_messages');
     }

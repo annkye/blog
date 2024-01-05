@@ -17,7 +17,7 @@ doctrine:
         auto_mapping: true
         mappings:
             User:
-                type: php
+                type: attribute
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Model/User/Entity'
                 prefix: 'App\Model\User\Entity'

@@ -9,26 +9,12 @@
                 <div class="card mx-4">
                     <div class="card-body p-4">
                         {% include '_flashes.html.twig' %}
-                        <h1>Sign Up</h1>
+                        <h1>Регистрация</h1>
 
                         <p class="text-muted">Создать аккаунт</p>
 
                         {{ form_start(form) }}
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="icon-user"></i></span>
-                            </div>
-                            {{ form_widget(form.firstName, {'attr': {'placeholder': 'Имя'}}) }}
-                            {{ form_errors(form.firstName) }}
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="icon-user"></i></span>
-                            </div>
-                            {{ form_widget(form.lastName, {'attr': {'placeholder': 'Фамилия'}}) }}
-                            {{ form_errors(form.lastName) }}
-                        </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>

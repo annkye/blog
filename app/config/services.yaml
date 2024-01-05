@@ -19,6 +19,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Model\User\Service\ResetTokenizer:
+        factory: 'App\Container\Model\User\Service\ResetTokenizerFactory:create'
+        arguments: ['PT1H']

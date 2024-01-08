@@ -2,7 +2,7 @@ up: docker-up
 init: docker-down-clear docker-pull docker-build docker-up composer-inst wait-db docker-migrations
 restart: docker-down docker-up
 migrate: docker-migrations
-test: manager-test
+test: docker-test
 
 docker-up:
 	docker-compose up -d
@@ -28,7 +28,9 @@ wait-db:
 docker-migrations:
 	docker-compose run --rm php-cli php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
-manager-test:
+docker-test:
 	docker-compose run --rm php-cli php bin/phpunit
 
+docker-yarn-install:
+	docker-compose run --rm node yarn install
 

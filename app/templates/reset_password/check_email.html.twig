@@ -1,0 +1,22 @@
+{% extends 'auth.html.twig' %}
+
+{% block title %}Сброс пароля{% endblock %}
+
+{% block body %}
+    <div class="min-vh-100 d-flex flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card mb-4 mx-4">
+                        <div class="card-body p-4">
+                            <p class="text-medium-emphasis">Если ваш аккаунт был зарегистрирован на указанную почту, вам будет выслана ссылка для сброса пароля.
+                                Ссылка будет активна в течение {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+                            <p class="text-medium-emphasis">Если вы не получили письмо, проверьте папку "Спам" или <a href="{{ path('app_forgot_password_request') }}">попробуйте ещё раз</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

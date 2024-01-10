@@ -1,0 +1,6 @@
+<p>Чтобы сбросить пароль, перейдите по следующей ссылке: </p>
+
+<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+
+<p>Эта ссылка действительна в течение {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+

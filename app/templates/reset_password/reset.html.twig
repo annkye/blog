@@ -1,0 +1,36 @@
+{% extends 'auth.html.twig' %}
+
+{% block title %}Сброс пароля{% endblock %}
+
+{% block body %}
+    <div class="min-vh-100 d-flex flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card mb-4 mx-4">
+                        <div class="card-body p-4">
+                            <h1>Новый пароль</h1>
+                            {{ form_errors(resetForm) }}
+                            <p class="text-medium-emphasis">Задайте новый пароль</p>
+                            {{ form_start(resetForm) }}
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1"/></svg>
+                                </span>
+                                {{ form_widget(resetForm.plainPassword.first, {'attr': {'placeholder': 'Пароль'}}) }}
+                            </div>
+                            <div class="input-group mb-4">
+                                <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1"/></svg>
+                                </span>
+                                {{ form_widget(resetForm.plainPassword.second, {'attr': {'placeholder': 'Повторите пароль'}}) }}
+                            </div>
+                            <button class="btn btn-block btn-success" type="submit">Сброс</button>
+                            {{ form_end(resetForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

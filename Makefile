@@ -3,6 +3,7 @@ init: docker-down-clear docker-pull docker-build docker-up composer-inst wait-db
 restart: docker-down docker-up
 migrate: docker-migrations
 test: docker-test
+assets: docker-assets-dev
 
 docker-up:
 	docker-compose up -d
@@ -33,4 +34,9 @@ docker-test:
 
 docker-yarn-install:
 	docker-compose run --rm node yarn install
+
+
+docker-assets-dev:
+	docker-compose run --rm node npm run dev
+
 

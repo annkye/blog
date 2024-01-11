@@ -7,17 +7,19 @@ services:
       context: ./app/docker/dev/nginx
     volumes:
       - ./app:/app
-    restart: always
     depends_on:
       - php-fpm
     ports:
       - "8080:80"
   php-fpm:
-    container_name: php83-fpm-container
+    container_name: fpm-container
     build:
       context: ./app/docker/dev/php-fpm
     volumes:
       - ./app:/app
+    depends_on:
+      - postgres
+      - redis
   php-cli:
     build:
       context: ./app/docker/dev/php-cli
@@ -35,12 +37,17 @@ services:
     ports:
       - "5432:5432"
   node:
-    container_name: node_container
     image: node:21.5-alpine3.18
     volumes:
       - ./app:/app
     working_dir: /app
+  redis:
+    image: redis:7.2.4-alpine
+    volumes:
+      - redis:/data
+    command: redis-server --requirepass password
 
 volumes:
   postgres:
   composer:
+  redis:

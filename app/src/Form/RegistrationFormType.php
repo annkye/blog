@@ -21,12 +21,13 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class)
             ->add('userName', TextType::class, [
                 'required'   => true,
+                'error_bubbling' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Пожалуйста, введите ваш никнейм',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 4,
                         'minMessage' => 'Никнейм должен содержать не менее {{ limit }} символов',
                         'max' => 255,
                     ]),

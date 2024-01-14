@@ -1,7 +1,7 @@
 up: docker-up
-init: docker-down-clear docker-pull docker-build docker-up composer-inst wait-db docker-migrations
+init: docker-down-clear docker-pull docker-build docker-up composer-install wait-db docker-migrate
 restart: docker-down docker-up
-migrate: docker-migrations
+migrate: docker-migrate
 test: docker-test
 assets: docker-assets-dev
 
@@ -20,13 +20,13 @@ docker-pull:
 docker-build:
 	docker-compose build
 
-composer-inst:
+composer-install:
 	docker-compose run --rm php-cli composer install --prefer-dist
 
 wait-db:
 	until docker-compose exec -T postgres pg_isready --timeout=0 --dbname=app ; do sleep 1 ; done
 
-docker-migrations:
+docker-migrate:
 	docker-compose run --rm php-cli php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
 docker-test:
@@ -37,6 +37,11 @@ docker-yarn-install:
 
 docker-assets-dev:
 	docker-compose run --rm node npm run dev
+
+clear:
+	docker-compose run --rm php-cli php bin/console cache:clear
+
+
 
 
 

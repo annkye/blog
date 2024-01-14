@@ -11,3 +11,4 @@
 /app/.phpunit.result.cache
 /app/phpunit.xml
 /app/.idea/
+/app/public/images/

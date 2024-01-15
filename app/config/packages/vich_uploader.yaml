@@ -14,3 +14,8 @@ vich_uploader:
       delete_on_update: true
       delete_on_remove: true
 
+    thumbnail:
+      uri_prefix: /images/thumbnails
+      upload_destination: "%kernel.project_dir%/public/images/thumbnails"
+      namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+

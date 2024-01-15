@@ -3,6 +3,7 @@
 {% block title %}Главная{% endblock %}
 
 {% block body %}
+<div class="bg-body-tertiary">
     <div>
         <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -15,9 +16,9 @@
                     <img src="https://cdna.artstation.com/p/assets/images/images/033/020/824/4k/ward-lindhout-heywood-conceptart-cyberpunk2077-wardlindhout-small.jpg?1608153413" class="img-fluid opacity-50" alt="...">
                     <div class="container">
                         <div class="carousel-caption text-start">
-                            <h1 class = "text-light">Example headline.</h1>
-                            <p class="text-light">Some representative placeholder content for the first slide of the carousel.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                            <h1 class = "text-light">Регистрация</h1>
+                            <p class="text-light">Только зарегистрированные пользователи могут оставлять комментарии и создавать посты</p>
+                            <p><a class="btn btn-lg btn-primary" href="/register">Попробовать</a></p>
                         </div>
                     </div>
                 </div>
@@ -25,9 +26,9 @@
                     <img src="https://cdnb.artstation.com/p/assets/images/images/013/119/965/4k/mood-design-studio-aogwar-dangers-of-the-world-upperlevel.jpg?1538140241" class="img-fluid opacity-50" alt="...">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1 class = "text-light">Another example headline.</h1>
-                            <p class="text-light">Some representative placeholder content for the second slide of the carousel.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                            <h1 class = "text-light">Загрузка фото профиля</h1>
+                            <p class="text-light">Чтобы подчеркнуть свою уникальность, выложите фото профиля</p>
+                            <p><a class="btn btn-lg btn-primary" href="#">Попробовать</a></p>
                         </div>
                     </div>
                 </div>
@@ -35,9 +36,9 @@
                     <img src="https://cdna.artstation.com/p/assets/images/images/011/595/134/4k/frank-tzeng-hand6.jpg?1530380624" class="img-fluid opacity-50" alt="...">
                     <div class="container">
                         <div class="carousel-caption text-end">
-                            <h1 class = "text-light">One more for good measure.</h1>
-                            <p class="text-light">Some representative placeholder content for the third slide of this carousel.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                            <h1 class = "text-light">Забыли пароль?</h1>
+                            <p class="text-light">Ничего страшного, система сброса пароля поможет его восстановить и задать новый</p>
+                            <p><a class="btn btn-lg btn-primary" href="/login">Попробовать</a></p>
                         </div>
                     </div>
                 </div>
@@ -55,28 +56,37 @@
 
 
     <div class="container">
-        <div class="row my-4">
+        <div class="row my-5">
             {% for post in posts %}
-            <div class="col-md-6">
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
-                        <h3 class="mb-0">{{ post.title }}</h3>
-                        <div class="mb-1 text-body-secondary">Nov 12</div>
-                        <p class="card-text mb-auto">{{ post.description }}</p>
-                        <a href="{{ path('post_show', {'id': post.id}) }}" class="icon-link gap-1 icon-link-hover stretched-link">Читать далее<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
-                                <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/></svg>
-                        </a>
-                            <a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-primary">Изменить</a>
+                {% if post.id / 2 == 1 %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <a href="{{ path('post_show', {'id': post.id}) }}"><img src="{{ vich_uploader_asset(post) }}" alt="mdo" class="img-fluid mb-3"></a>
+                            <div class="card-body">
+                                <div class="small text-muted my-2">{{ post.createdAt |date('d.m.Y H:i:s') }}</div>
+                                <h2 class="card-title h4 mb-3">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.description }}</p>
+                                <a href = "{{ path('post_show', {'id': post.id}) }}" class="btn btn-primary">Читать далее →</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto d-none d-lg-block">
-                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                {% else %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <a href="{{ path('post_show', {'id': post.id}) }}"><img src="{{ vich_uploader_asset(post) }}" alt="mdo" class="img-fluid mb-3"></a>
+                            <div class="card-body">
+                                <div class="small text-muted my-2">{{ post.createdAt |date('d.m.Y H:i:s') }}</div>
+                                <h2 class="card-title h4 mb-3">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.description }}</p>
+                                <a href = "{{ path('post_show', {'id': post.id}) }}" class="btn btn-primary">Читать далее →</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                {% endif %}
             {% else %}
                 Похоже ни одной статьи нет...
             {% endfor %}
         </div>
     </div>
+</div>
 {% endblock %}

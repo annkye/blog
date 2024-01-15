@@ -1,30 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
-    <h1>Post</h1>
+    <div class = "container mt-5">
+        <div class="row">
+        <div class="col-lg-8">
+            <article>
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-3">{{ post.title }}</h1>
+                    <!-- Post meta content-->
+                    <div class="text-muted fst-italic mb-2">Создано {{ post.author.userName }} {{ post.createdAt |date('d.m.Y H:i') }} </div>
+                </header>
+                <!-- Preview image figure-->
+                <figure class="mb-4"><img class="img-fluid rounded mb-5" src="{{ vich_uploader_asset(post) }}" alt="..."></figure>
+                <!-- Post content-->
+                <section class="mb-5">
+                    <p class = "fs-5 mb-4"> {{ post.content }}</p>
+                </section>
+            </article>
+            <section class="mb-4">
+                <div class="card bg-body-tertiary">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="mb-3">
+                            {{ form_widget(form.comment, {'attr': {'placeholder': 'Понравилась статья и хотите её обсудить? Оставьте ваш комментарий'}}) }}
+                        </div>
+                        <button class="mb-4 btn btn-primary" type = "submit">{{ button_label|default('Отправить'|trans) }}</button>
+                        {{ form_end(form) }}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ post.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ post.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+                        {% for item in post.comments %}
+                            <div class="d-flex mt-4">
+                                <div class="flex-shrink-0"><img class="rounded-circle" width="50" height="50" src="{{ vich_uploader_asset(item.author) }}" alt="..."></div>
+                                <div class="ms-3">
+                                    <strong>{{ item.author.userName }}</strong>
+                                    {% if item.author.id == post.author.id %}<span class="mx-3 badge rounded-pill  text-bg-primary">Автор</span>{% endif %}
+                                    <p class = "fw-light"><small>{{ item.createdAt|date('d.m.Y H:i') }}</small></p>
+                                    <p class = "mt-2">{{ item.comment }}</p>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class = "mt-4">Вы будете первым, кто прокомментирует!</div>
+                        {% endfor %}
 
-    <a href="{{ path('app_post_index') }}">back to list</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+            {% if is_granted('IS_AUTHENTICATED') %}
+                {% if app.user.id == post.author.id  %}
+            <div class="col-lg-2">
+                <div class="card mb-4">
+                    <div class="card-header">Действия</div>
+                    <div class="card-body">
+                        <div class="row justify-content-md-center">
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li class = "mb-2 align-self-center"><a href="{{ path('post_edit', {'id': post.id}) }}" class = "btn btn-primary btn-sm">Изменить</a></li>
+                                    <li><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Удалить</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    {% endif %}
+            {% endif %}
+        </div>
+    </div>
 
-    <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
 
-    {{ include('post/_delete_form.html.twig') }}
+<form method="post" action="{{ path('post_delete', {'id': post.id}) }}">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Подтвердите действие</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Вы уверены, что хотите удалить статью? Это действие невозможно будет отменить?
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
 {% endblock %}

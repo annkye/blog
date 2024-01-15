@@ -1,13 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Post{% endblock %}
+{% block title %}Изменить пост{% endblock %}
 
 {% block body %}
-    <h1>Edit Post</h1>
-
-    {{ include('post/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_post_index') }}">back to list</a>
-
-    {{ include('post/_delete_form.html.twig') }}
+    <div class="container d-flex justify-content-center">
+        <main class="container">
+            <div class="d-flex flex-row py-5 my-5">
+                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none" href="#">
+                    {% if app.user.avatarName == null %}
+                        <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ app.user.userName }}" alt="mdo" width="90" height="90" class="rounded-circle">
+                    {% else %}
+                        <img src="{{ vich_uploader_asset(app.user) }}" alt="mdo" width="86" height="86" class="rounded-circle">
+                    {% endif %}
+                    <div class="col-lg-8">
+                        <h6 class="mb-0">Автор: {{ app.user.userName }}</h6>
+                        <small class="text-body-secondary"></small>
+                    </div>
+                </a>
+            </div>
+            <div class="px-4 my-3">
+                {{ form_start(form) }}
+                <div class="input-group input-group-lg mb-3 input-border-color">
+                    {{ form_widget(form.title) }}
+                </div>
+                <div class="input-group mb-4">
+                    {{ form_widget(form.description) }}
+                </div>
+                <div class="input-group mb-5">
+                    <div class="form-floating">
+                        {{ form_widget(form.content, {'attr': {'style': 'height: 400px'}}) }}
+                    </div>
+                </div>
+                <p class="text-medium-emphasis">Загрузите превью статьи</p>
+                <div class="input-group mb-5">
+                    {{ form_widget(form.thumbnailFile) }}
+                </div>
+                <button class="btn btn-block btn-primary">{{ button_label|default('Изменить') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </main>
+    </div>
 {% endblock %}

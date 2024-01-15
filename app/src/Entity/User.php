@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\Collection;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -50,6 +52,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
     #[ORM\Column(nullable: true)]
     private ?int $avatarSize = null;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: 'App\Entity\Post', orphanRemoval: true)]
+    private Collection $posts;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class)]
+    private Collection $comments;
 
     public function serialize()
     {
@@ -116,7 +124,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
     public function __construct()
     {
-        $this->date = new \DateTimeImmutable();
+        $this->date = new \DateTimeImmutable('now', new \DateTimeZone("ASIA/NOVOSIBIRSK"));
+        $this->posts = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
 
@@ -219,5 +229,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPosts(Post $posts): static
+    {
+        if (!$this->posts->contains($posts)) {
+            $this->posts->add($posts);
+            $posts->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePosts(Post $posts): static
+    {
+        if ($this->posts->removeElement($posts)) {
+            // set the owning side to null (unless already changed)
+            if ($posts->getAuthor() === $this) {
+                $posts->setAuthor(null);
+            }
+        }
+        return $this;
     }
 }

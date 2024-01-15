@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentFormType;
 use App\Form\PostType;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,11 +45,21 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/article/{id}', name: 'post_show', methods: ['GET'])]
-    public function show(Post $post): Response
+    #[Route('/article/{id}', name: 'post_show')]
+    public function show(Post $post, Request $request, CommentRepository $commentRepository): Response
     {
+        $comment = (new Comment())->setPost($post);
+        $form = $this->createForm( CommentFormType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentRepository->save($comment, true);
+            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+        }
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
+            'form' => $form,
         ]);
     }
 

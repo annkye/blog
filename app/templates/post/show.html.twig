@@ -22,12 +22,18 @@
             <section class="mb-4">
                 <div class="card bg-body-tertiary">
                     <div class="card-body">
-                        {{ form_start(form) }}
-                        <div class="mb-3">
-                            {{ form_widget(form.comment, {'attr': {'placeholder': 'Понравилась статья и хотите её обсудить? Оставьте ваш комментарий'}}) }}
-                        </div>
-                        <button class="mb-4 btn btn-primary" type = "submit">{{ button_label|default('Отправить'|trans) }}</button>
-                        {{ form_end(form) }}
+                        {% if is_granted('IS_AUTHENTICATED') %}
+                            {{ form_start(form) }}
+                            <div class="mb-3">
+                                {{ form_widget(form.comment, {'attr': {'placeholder': 'Понравилась статья и хотите её обсудить? Оставьте ваш комментарий'}}) }}
+                            </div>
+                            <button class="mb-4 btn btn-primary" type = "submit">{{ button_label|default('Отправить'|trans) }}</button>
+                            {{ form_end(form) }}
+                            {% else %}
+                                <div class="mb-3">
+                                    <div class = "mt-4">Оставлять комментарии могут только авторизованные пользователи</div>
+                                </div>
+                        {% endif %}
 
                         {% for item in post.comments %}
                             <div class="d-flex mt-4">
@@ -56,7 +62,7 @@
                         <div class="row justify-content-md-center">
                             <div class="col-sm-6">
                                 <ul class="list-unstyled mb-0">
-                                    <li class = "mb-2 align-self-center"><a href="{{ path('post_edit', {'id': post.id}) }}" class = "btn btn-primary btn-sm">Изменить</a></li>
+                                    <li class = "mb-2 align-self-center"><a href="{{ path('post_edit', {'slug': post.slug}) }}" class = "btn btn-primary btn-sm">Изменить</a></li>
                                     <li><button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Удалить</button></li>
                                 </ul>
                             </div>
@@ -70,7 +76,7 @@
     </div>
 
 
-<form method="post" action="{{ path('post_delete', {'id': post.id}) }}">
+<form method="post" action="{{ path('post_delete', {'slug': post.slug}) }}">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

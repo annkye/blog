@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Результаты поиска{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row my-5">
+        {% for post in posts %}
+            {% if post.id / 2 == 1 %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <a href="{{ path('post_show', {'slug': post.slug}) }}"><img src="{{ vich_uploader_asset(post) }}" alt="mdo" class="img-fluid mb-3"></a>
+                        <div class="card-body">
+                            <div class="small text-muted my-2">{{ post.createdAt |date('d.m.Y H:i:s') }}</div>
+                            <h2 class="card-title h4 mb-3">{{ post.title }}</h2>
+                            <p class="card-text">{{ post.description }}</p>
+                            <a href = "{{ path('post_show', {'slug': post.slug}) }}" class="btn btn-primary">Читать далее →</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <a href="{{ path('post_show', {'slug': post.slug}) }}"><img src="{{ vich_uploader_asset(post) }}" alt="mdo" class="img-fluid mb-3"></a>
+                        <div class="card-body">
+                            <div class="small text-muted my-2">{{ post.createdAt |date('d.m.Y H:i:s') }}</div>
+                            <h2 class="card-title h4 mb-3">{{ post.title }}</h2>
+                            <p class="card-text">{{ post.description }}</p>
+                            <a href = "{{ path('post_show', {'slug': post.slug}) }}" class="btn btn-primary">Читать далее →</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            Похоже, ничего не найдено...
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

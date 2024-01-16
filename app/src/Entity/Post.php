@@ -43,6 +43,9 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private User $author;
 
+    #[ORM\Column(nullable: false)]
+    private string $slug;
+
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
@@ -192,5 +195,18 @@ class Post
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug): void
+    {
+        $this->slug = $slug;
     }
 }

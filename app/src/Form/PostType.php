@@ -20,10 +20,10 @@ class PostType extends AbstractType
             ->add('content', TextareaType::class)
             ->add('description', TextType::class)
             ->add('thumbnailFile', VichImageType::class, [
-                'required' => false,
-                'allow_delete' => true,
-                'download_uri' => true,
-                'image_uri' => true,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'required' => true,
+                'image_uri' => false,
                 'asset_helper' => true,
             ])
         ;

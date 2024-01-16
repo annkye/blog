@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block body %}
+<div class="bg-body-tertiary">
+    <div>
+        <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://cdna.artstation.com/p/assets/images/images/033/020/824/4k/ward-lindhout-heywood-conceptart-cyberpunk2077-wardlindhout-small.jpg?1608153413" class="img-fluid opacity-50" alt="...">
+                    <div class="container">
+                        <div class="carousel-caption text-start">
+                            <h1 class = "text-light">Регистрация</h1>
+                            <p class="text-light">Только зарегистрированные пользователи могут оставлять комментарии и создавать посты</p>
+                            <p><a class="btn btn-lg btn-primary" href="/register">Попробовать</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://cdnb.artstation.com/p/assets/images/images/013/119/965/4k/mood-design-studio-aogwar-dangers-of-the-world-upperlevel.jpg?1538140241" class="img-fluid opacity-50" alt="...">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1 class = "text-light">Загрузка фото профиля</h1>
+                            <p class="text-light">Чтобы подчеркнуть свою уникальность, выложите фото профиля</p>
+                            <p><a class="btn btn-lg btn-primary" href="#">Попробовать</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://cdna.artstation.com/p/assets/images/images/011/595/134/4k/frank-tzeng-hand6.jpg?1530380624" class="img-fluid opacity-50" alt="...">
+                    <div class="container">
+                        <div class="carousel-caption text-end">
+                            <h1 class = "text-light">Забыли пароль?</h1>
+                            <p class="text-light">Ничего страшного, система сброса пароля поможет его восстановить и задать новый</p>
+                            <p><a class="btn btn-lg btn-primary" href="/login">Попробовать</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="container pt-5">
+        <div class="row py-5 justify-content-center">
+            {% for post in posts %}
+                {% if post.id / 3 == 1 %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <a href="{{ path('post_show', {'slug': post.slug}) }}"><img src="{{ vich_uploader_asset(post) }}" alt="mdo"  class="img-fluid mb-3"></a>
+                            <div class="card-body">
+                                <div class="small text-muted my-2">{{ post.createdAt |date('d.m.Y H:i:s') }}</div>
+                                <h2 class="card-title h4 mb-3">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.description }}</p>
+                                <a href = "{{ path('post_show', {'slug': post.slug}) }}" class="btn btn-primary">Читать далее →</a>
+                            </div>
+                        </div>
+                    </div>
+                {% elseif post.id / 3 == 2 %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <a href="{{ path('post_show', {'slug': post.slug}) }}"><img src="{{ vich_uploader_asset(post) }}" alt="mdo"  class="img-fluid mb-3"></a>
+                            <div class="card-body">
+                                <div class="small text-muted my-2">{{ post.createdAt |date('d.m.Y H:i:s') }}</div>
+                                <h2 class="card-title h4 mb-3">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.description }}</p>
+                                <a href = "{{ path('post_show', {'slug': post.slug}) }}" class="btn btn-primary">Читать далее →</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <a href="{{ path('post_show', {'slug': post.slug}) }}"><img src="{{ vich_uploader_asset(post) }}" alt="mdo" class="img-fluid mb-3"></a>
+                            <div class="card-body">
+                                <div class="small text-muted my-2">{{ post.createdAt |date('d.m.Y H:i:s') }}</div>
+                                <h2 class="card-title h4 mb-3">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.description }}</p>
+                                <a href = "{{ path('post_show', {'slug': post.slug}) }}" class="btn btn-primary">Читать далее →</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+
+                Похоже ни одной статьи нет...
+            {% endfor %}
+            <div class ="col-lg-4 pt-4 text-center">
+                <a href="/blog" class="btn btn-outline-light px-5">Показать ещё</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
